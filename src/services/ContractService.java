@@ -10,17 +10,25 @@ public class ContractService {
 	//Contract contract;
 	//private int months;
 	
-	//private OnlinePaymentService service = new PaypalService();
+	private OnlinePaymentService onlinePaymentService;
 	
-	public void processContract(Contract contract, int months, OnlinePaymentService service) {
+	
+	
+	public ContractService(OnlinePaymentService onlinePaymentService) {
+		this.onlinePaymentService = onlinePaymentService;
+	}
+
+
+
+	public void processContract(Contract contract, int months) {
 		
 		
 		for (int month=1; month<= months; month++) {
 			 double baseValue = contract.getTotalValue()/months;
 			 
 			 // Payment Value corrections
-			 baseValue += service.interest(baseValue, month);
-			 baseValue += service.paymentFee(baseValue);
+			 baseValue += onlinePaymentService.interest(baseValue, month);
+			 baseValue += onlinePaymentService.paymentFee(baseValue);
 			 
 			 // DueDate calculation
 			 LocalDate baseDate = contract.getDate().plusMonths(month);

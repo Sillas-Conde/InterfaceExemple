@@ -2,18 +2,18 @@ package application;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 
 import entities.Contract;
 import services.ContractService;
-import services.OnlinePaymentService;
 import services.PaypalService;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		
+		Locale.setDefault(Locale.US);
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 		Scanner sc = new Scanner(System.in);
@@ -34,10 +34,11 @@ public class Program {
 		sc.close();
 		
 		Contract ct1 = new Contract(ID, date, contractValue);
-		ContractService ctService = new ContractService();
-		OnlinePaymentService service = new PaypalService();
 		
-		ctService.processContract(ct1,contracts,service);
+		ContractService ctService = new ContractService(new PaypalService());
+		//OnlinePaymentService service = new PaypalService();
+		
+		ctService.processContract(ct1,contracts);
 		
 		
 		System.out.println(ct1.toString());

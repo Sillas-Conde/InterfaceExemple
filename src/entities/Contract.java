@@ -8,16 +8,16 @@ import java.util.List;
 public class Contract {
 	
 	
-	private int ID;
+	private Integer ID;
 	private LocalDate date;
-	private double totalValue;
+	private Double totalValue;
 	
 	private List<Installment> installments = new ArrayList<>();
 	
 	
 	// Constructors
 	public Contract() {}
-	public Contract(int ID, LocalDate date, double totalValue) {
+	public Contract(Integer ID, LocalDate date, Double totalValue) {
 		this.ID = ID;
 		this.date = date;
 		this.totalValue = totalValue;
@@ -38,6 +38,8 @@ public class Contract {
 	public List<Installment> getInstallments() {
 		return installments;
 	}
+	
+	// Add installments
 	public void addInstallment(Installment installment) {
 		
 		this.installments.add(installment);
@@ -46,7 +48,7 @@ public class Contract {
 	@Override
 	public String toString() {
 		
-		String installments = "";
+		String installments = "Installments: \n";
 		DateTimeFormatter fmt1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
 		for (Installment installment : this.installments) {
